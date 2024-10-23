@@ -141,22 +141,5 @@ for nt in range(0,Nt):
     DISP.append(xval)
     fileResult_u.write(uh, tn)
 
-stress = sigma(uh)
-div_stress = div(stress)
-
-
-local_eta1 = f+div_stress
-local_eta2 = jump(uh)
-local_eta3 = jump(stress)
-local_eta4 = stress
-total_eta = h_avg*h_avg*dot(local_eta1,local_eta1)*dx\
-            +dot(local_eta2,local_eta2)/h_avg*dS + dot(uh,uh)/h*ds(2)\
-            +h_avg*inner(local_eta3,local_eta3)*dS\
-            +h*inner(local_eta4,local_eta4)*ds(1)
-
-posterror = None
-posterror = assemble(total_eta, tensor=posterror)
-posterror = sqrt(posterror)
-print(posterror)
 np.savetxt("Time_elasticity.txt",TIME , fmt="%.5e")
 np.savetxt("DISP(elasticity).txt",DISP , fmt="%.5e")
